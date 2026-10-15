@@ -27,6 +27,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -65,6 +66,7 @@ class FeedViewModelDiscoveryTest {
         coEvery { discoverRepository.allowedCachedFeed() } returns listOf(mockTrack)
 
         val viewModel = FeedViewModel(
+            RuntimeEnvironment.getApplication(),
             feedRepository,
             sessionPreferences,
             settingsPreferences,
@@ -84,6 +86,7 @@ class FeedViewModelDiscoveryTest {
         coEvery { discoverRepository.nextBatch(any()) } throws RuntimeException("Network error")
 
         val viewModel = FeedViewModel(
+            RuntimeEnvironment.getApplication(),
             feedRepository,
             sessionPreferences,
             settingsPreferences,
